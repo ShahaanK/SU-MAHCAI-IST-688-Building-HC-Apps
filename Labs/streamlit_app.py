@@ -15,13 +15,13 @@ st.set_page_config(
     menu_items=None)
 
 lab_1_page = st.Page(
-    'Labs\\Lab 1\\szkhan-Lab-1.py',
+    'Lab 1/szkhan-Lab-1.py',
     title= "Bob",
     icon= "📄",
     default=False
     )
 lab_2_page = st.Page(
-    'Labs\\Lab 2\\szkhan-Lab-2.py',
+    'Lab 2/szkhan-Lab-2.py',
     title= "Bob",
     icon= "📄",
     default=False

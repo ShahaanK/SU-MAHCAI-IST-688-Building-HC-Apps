@@ -34,3 +34,7 @@ dist/
 
 # Logs
 *.log
+
+# Sensitive files
+*.pem
+*.toml
