@@ -1,12 +1,5 @@
 import streamlit as st
 
-# Show title and description.
-st.title("My Document question answering")
-st.write(
-    "Upload a document below and ask a question about it – GPT will answer! "
-    "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
-)
-
 st.set_page_config(
     page_title="Base", 
     page_icon="📄", 
@@ -14,6 +7,12 @@ st.set_page_config(
     initial_sidebar_state="expanded", 
     menu_items=None)
 
+home_page = st.Page(
+    'home.py',
+    title="Home",
+    icon="🏠",
+    default=True
+    )
 lab_1_page = st.Page(
     'Lab 1/szkhan-Lab-1.py',
     title= "Bob",
@@ -28,16 +27,13 @@ lab_2_page = st.Page(
     )
 pgs = st.navigation(
     [
+        home_page,
         lab_1_page,
         lab_2_page,
     ],
-    default=lab_1_page,
+    default=home_page,
     title="Labs",
     icon="📄",
 )
-
-st.set_page_config(
-    page_title="Base",
-    page_icon="📄")
 
 pgs.run()
