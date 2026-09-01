@@ -1,5 +1,4 @@
 import streamlit as st
-from openai import OpenAI
 
 # Show title and description.
 st.title("My Document question answering")
@@ -40,4 +39,5 @@ pgs = st.navigation(
 st.set_page_config(
     page_title="Base",
     page_icon="📄")
-pg.run()
+
+pgs.run()
