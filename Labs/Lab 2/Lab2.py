@@ -25,7 +25,7 @@ st.write(
 # Part B
 try:
     openai_api_key = st.secrets["OPENAI_API_KEY"]
-except KeyError:
+except (KeyError, FileNotFoundError):
     st.error(
         "No OPENAI_API_KEY found.",
         icon="🗝️",
