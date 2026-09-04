@@ -8,9 +8,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Streamlit
-.streamlit/secrets.toml
-.streamlit/*.toml
+# Streamlit secrets — never commit. Unanchored so they match at any depth
+# (e.g. Labs/.streamlit/secrets.toml), not just the repo root.
+**/.streamlit/secrets.toml
+secrets.toml
 
 # Jupyter / notebooks
 .ipynb_checkpoints/

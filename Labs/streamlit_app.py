@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Base", 
+    page_title="IST 688 Labs", 
     page_icon="📄", 
     layout="centered", 
     initial_sidebar_state="expanded", 
@@ -11,19 +11,19 @@ home_page = st.Page(
     'home.py',
     title="Home",
     icon="🏠",
-    default=True
+    default=False
     )
 lab_1_page = st.Page(
-    'Lab 1/szkhan-Lab-1.py',
+    'Lab 1/Lab1.py',
     title= "Lab 1",
     icon= "📄",
     default=False
     )
 lab_2_page = st.Page(
-    'Lab 2/szkhan-Lab-2.py',
+    'Lab 2/Lab2.py',
     title= "Lab 2",
     icon= "📄",
-    default=False
+    default=True
     )
 pgs = st.navigation(
     [
