@@ -1,0 +1,41 @@
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Streamlit secrets — never commit. Unanchored so they match at any depth
+# (e.g. Labs/.streamlit/secrets.toml), not just the repo root.
+**/.streamlit/secrets.toml
+secrets.toml
+
+# Jupyter / notebooks
+.ipynb_checkpoints/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Coverage / test artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Sensitive files
+*.pem
+*.toml
