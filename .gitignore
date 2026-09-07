@@ -38,4 +38,6 @@ dist/
 
 # Sensitive files
 *.pem
-*.toml
+*.key
+.env
+.env.*
