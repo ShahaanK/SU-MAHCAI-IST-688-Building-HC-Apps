@@ -23,6 +23,12 @@ lab_2_page = st.Page(
     'Lab 2/Lab2.py',
     title= "Lab 2",
     icon= "📄",
+    default=False
+    )
+lab_3_page = st.Page(
+    'Lab 3/Lab3.py',
+    title= "Lab 3",
+    icon= "📄",
     default=True
     )
 pgs = st.navigation(
@@ -30,6 +36,7 @@ pgs = st.navigation(
         home_page,
         lab_1_page,
         lab_2_page,
+        lab_3_page
     ]
 )
 
