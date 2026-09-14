@@ -8,6 +8,7 @@ Chatbot page: [`HW/HW3.py`](HW3.py). Full raw output: [`HW3_transcripts.md`](HW3
 | --- | --- |
 | **Vendor 1** | OpenAI, model ID `gpt-5.5` (called directly) |
 | **Vendor 2** | Anthropic, model ID `anthropic/claude-opus-5` (called via OpenRouter) |
+| **Also in the app** | A faster model per vendor (`gpt-5.4-mini`, `anthropic/claude-haiku-4.5`) for cheap testing. Not used in this evaluation. |
 | **Memory** | System prompt carrying the URL text, rebuilt and re-sent every turn, plus a rolling buffer of the last 6 chat messages (3 user/assistant exchanges) |
 | **Doc 1** | <https://www.howbaseballworks.com/TheBasics.htm> (6,022 chars) |
 | **Doc 2** | <https://www.pbs.org/kenburns/baseball/baseball-for-beginners> (12,863 chars) |
@@ -224,7 +225,7 @@ transcript still shows all four turns; only what is sent to the model is trimmed
 | --- | --- | --- |
 | 1 | Lab3.py copied to `HW/HW3.py` | Done — [`HW/HW3.py`](HW3.py) |
 | 2 | Up to two URLs, re-using `read_url_content()` from HW2 | Done — sidebar, function copied from HW2 and wrapped in `@st.cache_data` so pages are not re-scraped on every turn |
-| 3 | Pick the LLM; 2 vendors, latest premium models | Done — `gpt-5.5` and `anthropic/claude-opus-5` |
+| 3 | Pick the LLM; 2 vendors, latest premium models | Done — `gpt-5.5` and `anthropic/claude-opus-5`. The picker also offers a faster/cheaper model per vendor (`gpt-5.4-mini`, `anthropic/claude-haiku-4.5`) for quick testing; the evaluation below uses only the two premium models. |
 | 4 | URLs in a system prompt that is never discarded | Done — `build_system_prompt()` is rebuilt and prepended on every request |
 | 5 | Conversation memory (one of the four options) | Done — buffer of 6 messages / 3 exchanges (`BUFFER_MESSAGES = 6`) |
 | 6 | `st.write()` describing how the bot works | Done — top of page, including the buffer behavior |

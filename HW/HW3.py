@@ -3,17 +3,30 @@ import streamlit as st
 from bs4 import BeautifulSoup
 from openai import OpenAI
 
-# Two vendors, each with its current premium (flagship) model.
+# Two vendors. Each offers its current premium (flagship) model, which is what
+# the homework asks for, plus a cheaper/faster model for quick testing.
+OPENROUTER_URL = "https://openrouter.ai/api/v1"
+
 MODELS = {
-    "OpenAI — GPT-5.5": {
+    "OpenAI — GPT-5.5 (premium)": {
         "secret": "OPENAI_API_KEY",
         "base_url": None,
         "model": "gpt-5.5",
     },
-    "Anthropic — Claude Opus 5 (via OpenRouter)": {
+    "OpenAI — GPT-5.4 mini (fast)": {
+        "secret": "OPENAI_API_KEY",
+        "base_url": None,
+        "model": "gpt-5.4-mini",
+    },
+    "Anthropic — Claude Opus 5 (premium)": {
         "secret": "OPENROUTER_API_KEY",
-        "base_url": "https://openrouter.ai/api/v1",
+        "base_url": OPENROUTER_URL,
         "model": "anthropic/claude-opus-5",
+    },
+    "Anthropic — Claude Haiku 4.5 (fast)": {
+        "secret": "OPENROUTER_API_KEY",
+        "base_url": OPENROUTER_URL,
+        "model": "anthropic/claude-haiku-4.5",
     },
 }
 
