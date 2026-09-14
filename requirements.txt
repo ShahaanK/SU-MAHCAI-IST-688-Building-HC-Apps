@@ -4,3 +4,4 @@ pypdf
 pymupdf
 beautifulsoup4
 requests
+tiktoken

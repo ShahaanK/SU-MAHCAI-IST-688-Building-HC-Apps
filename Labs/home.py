@@ -12,5 +12,6 @@ st.markdown(
   question about it.
 - **Lab 2** — Document summarizer. Upload a `.pdf`, `.txt`, or `.md` file and choose a
   summary style and output language in the sidebar.
+- **Lab 3** — Creating an AI chat bot.
 """
 )
