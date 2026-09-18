@@ -5,7 +5,7 @@ This repo holds two separate Streamlit apps, each with its own entry point.
 
 | App | Run from repo root | Pages |
 | --- | --- | --- |
-| Labs | `streamlit run Labs/streamlit_app.py` | Home, Lab 1, Lab 2 |
+| Labs | `streamlit run Labs/streamlit_app.py` | Home, Lab 1, Lab 2, Lab 3, Lab 4 |
 | HW Manager | `streamlit run HW_Manager.py` | HW 1, HW 2, HW 3 |
 
 ## Setup
@@ -26,7 +26,7 @@ cp .streamlit/secrets.toml.example .streamlit/secrets.toml
 
 | Key | Needed for | Get one at |
 | --- | --- | --- |
-| `OPENAI_API_KEY` | Lab 2, and the OpenAI option in HW 2 and HW 3 | https://platform.openai.com/api-keys |
+| `OPENAI_API_KEY` | Lab 2, Lab 4, and the OpenAI option in HW 2 and HW 3 | https://platform.openai.com/api-keys |
 | `OPENROUTER_API_KEY` | the OpenRouter options in HW 2 and HW 3 | https://openrouter.ai/keys |
 
 `secrets.toml` is gitignored and must never be committed.

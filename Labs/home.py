@@ -13,5 +13,8 @@ st.markdown(
 - **Lab 2** — Document summarizer. Upload a `.pdf`, `.txt`, or `.md` file and choose a
   summary style and output language in the sidebar.
 - **Lab 3** — Creating an AI chat bot.
+- **Lab 4** — Course information chatbot. Answers questions about seven IST course
+  syllabi by retrieving the closest ones from a ChromaDB vector database and adding
+  them to the prompt (RAG).
 """
 )
