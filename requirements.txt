@@ -1,4 +1,9 @@
 streamlit
 openai
 pypdf
+pymupdf
+beautifulsoup4
+requests
 tiktoken
+chromadb
+pysqlite3-binary; sys_platform == "linux"
