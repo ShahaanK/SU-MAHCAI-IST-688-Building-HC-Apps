@@ -21,8 +21,14 @@ system prompt, and 10-message buffer a person using the app gets.
 
 | | |
 | --- | --- |
-| First run, empty directory | 10.3s, 1,026 mini-documents written to `HW4-ChromaDB/` (22 MB) |
-| Second run, new process | 5.51s to open, `count() == 1026`, zero embedding calls |
+| First run, empty directory | 10.3s and 16.2s on two separate cold builds; 1,026 mini-documents written to `HW4-ChromaDB/` (22 MB) |
+| Every run after, new process | 0.14s to open the collection, `count() == 1026`, zero embedding calls |
+
+I tested this properly rather than assuming it: I deleted `HW4-ChromaDB/`,
+ran the page, and watched it rebuild from `HW4-Data/` alone and then answer a
+question correctly. Opening an existing collection is effectively instant; the
+few seconds a warm start still takes are Python importing chromadb and
+streamlit, not the database.
 
 `get_collection()` opens a `PersistentClient` and only embeds when
 `collection.count() == 0`, so the database survives the process exiting.
@@ -238,5 +244,7 @@ of `HW4.py` are both carried over from Lab 4 and are what let ChromaDB run on
 Streamlit Community Cloud.
 
 `HW4-ChromaDB/` is gitignored. It is generated from `HW4-Data/`, so the first
-run on a fresh deployment rebuilds it once, in about the ten seconds measured
-above, and every run after that opens it.
+run on a fresh deployment rebuilds it once, in the ten to sixteen seconds
+measured above, and every run after that opens it. Streamlit Community Cloud
+has a slower CPU than this machine and sleeps idle apps, so expect the first
+load there to take longer than either figure.
