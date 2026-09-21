@@ -1,0 +1,158 @@
+HW 4 - iSchool Chatbot Using RAG
+Shahaan Khan (szkhan@syr.edu)
+
+App:  https://su-mahcai-ist-688-building-hc-apps-hw-manager.streamlit.app/
+Code: HW/HW4.py
+Full write-up with raw transcripts: HW4_Evaluation.md, HW4_transcripts.md
+
+
+SETUP
+
+All 513 'Cuse Activities HTML pages are in HW/HW4-Data. Each page is parsed
+with BeautifulSoup and split into exactly two mini-documents, so the ChromaDB
+collection holds 1,026 of them. The split is a midpoint cut moved forward to
+the next space. I picked that because the assignment asks for two per document
+and these pages are short (median about 1,600 characters), so each half lands
+near 800 characters, which is a reasonable size to embed. The halves also tend
+to fall where the page itself changes topic: what the club is, then when it
+meets and who runs it.
+
+The database is a ChromaDB PersistentClient on disk. It only builds when the
+collection is empty, so it is created once and reused after that. I checked by
+deleting it, watching it rebuild from the HTML in about 10 to 16 seconds, then
+confirming later runs open it in 0.14 seconds with no embedding calls.
+
+Embeddings: OpenAI text-embedding-3-small. Chat model: gpt-5-mini by default,
+with gpt-5.5 also available in the sidebar. Memory holds the last 5
+interactions. Each question retrieves the 5 closest organizations, and the
+whole page for each goes into the prompt.
+
+
+5a. THE FIVE QUESTIONS
+
+1. When and where does the Society of Women Engineers meet, and who is their
+   president?
+2. Which student organizations focus on sustainability or the environment?
+3. What does the Data Science Club do, and when do they meet?
+4. Is there a chess club at Syracuse I could join?
+5. Going back to the engineering group I asked about first, who is its faculty
+   advisor?
+
+I asked all five in one conversation so the memory buffer was in play, then
+re-ran question 5 by itself as a control.
+
+
+5b. WHY I CHOSE THEM
+
+1. Tests whether splitting a page in half breaks it. SWE is the worst case in
+   the corpus: its meeting time is cut exactly at the seam, with "Meeting
+   time:" ending the first half and "5:00 PM" starting the second. Neither
+   half answers the question alone.
+
+2. Tests thematic search. Nothing in the question matches a club's name, so
+   the embeddings have to capture what a club is about.
+
+3. A hallucination trap. The Data Science Club page exists and ranks first
+   easily, but nearly every field on it says "No Response". The model knows
+   what a data science club does, so it has a plausible wrong answer ready.
+
+4. There is no chess club in the corpus. I checked. Retrieval always returns
+   five pages, so this tests whether the bot notices none of them fit.
+
+5. Tests memory. The question names no organization, so the referent can only
+   come from the conversation. The control run isolates what the buffer added.
+
+
+5c. HOW IT PERFORMED
+
+Question              gpt-5-mini                gpt-5.5
+1. SWE meeting        correct                   correct
+2. Sustainability     partial                   partial
+3. Data Science Club  correct                   correct
+4. Chess club         correct                   correct
+5. Follow-up advisor  right club, no answer     right club, no answer
+
+Four of five went well.
+
+Q1 worked, which is the result I care most about. Both models answered
+Wednesday at 5:00 PM with president Luiza Ouwor, and both said the location
+was "No Response" instead of inventing one. The fact was split across two
+mini-documents and the answer was still right, because retrieval matches
+half-pages but the app reassembles the whole page before sending it. That is
+also why I did not add overlap between chunks.
+
+Q3 and Q4 show the bot does not fill in gaps. On Q3 both models said the
+description and meeting fields are blank and gave only the contact email.
+Neither described what a data science club does. On Q4 both said the directory
+has no chess club and offered the Gaming Club instead, with its real meeting
+time.
+
+Q2 is where it fell short, and the limit is retrieval, not the model. Both
+models were accurate about the clubs they were handed, but the five retrieved
+were not the five best. Food Recovery Network, whose page describes reducing
+food waste and recovering over 7 tons of food, never made the top five, while
+two clubs with no description at all did. Returning only 5 of 513 caps a broad
+question like this before the model sees anything.
+
+Q5 was the most useful result. Memory worked: both models figured out that
+"the engineering group I asked about first" meant the Society of Women
+Engineers. Retrieval did not, because the app embeds only the current
+question, and the bare follow-up says nothing about SWE. So the bot had the
+right club in mind and no page for it. Both models said they could not confirm
+the advisor rather than answering from whatever page was in front of them,
+which is the behavior I wanted. The control run makes the cause clear: with no
+history, gpt-5.5 had no referent and just answered about the top retrieved
+club as though that were the question.
+
+This counts as a real defect because the answer is in the corpus. SWE's page
+lists Dr. Sinead MacNamara as the faculty advisor.
+
+
+WOULD I CHANGE ANYTHING?
+
+Yes, one thing: retrieval should see the conversation, not just the latest
+question. I tested the simplest version before recommending it. Prepending the
+previous question before embedding moves SWE from missing entirely to first
+place at distance 0.593, which is closer than the 0.619 it scored on Q1's
+direct question. With SWE's page in the prompt, Q5 becomes answerable.
+
+I left this out of the submitted app on purpose. The transcripts describe the
+configuration as it stands, and swapping in an untested change would
+invalidate the other four results. A real version also needs more care than
+gluing two questions together, since that would drag old context into
+unrelated new questions. The proper fix rewrites the history and the new
+question into one search string, which deserves its own testing.
+
+Smaller change I considered: raising the number of retrieved organizations
+above 5 would help Q2. The pages are short, so 10 would still be a small
+prompt. Questions 1, 3 and 4 do not need it, so it trades cost for recall on
+one question type.
+
+I would not change the chunking. Two mini-documents per page is what the
+assignment asks for, and Q1 shows the seam is not costing accuracy.
+
+
+MODEL CHOICE
+
+gpt-5-mini is the default and it matched gpt-5.5 on all five questions.
+gpt-5.5 was tighter and about twice as fast overall in this run. gpt-5-mini
+slipped twice on the disclosure line the system prompt asks for, though never
+on facts: on Q4 it used both disclosure phrasings in one answer, and on Q5 it
+said it was answering from general knowledge and then said it did not know.
+
+
+NOTES
+
+I ran every question through the real app using streamlit.testing.v1.AppTest
+rather than calling the API separately, so each answer used the same
+retrieval, prompt and buffer a user gets. I ran each conversation once, so
+wording would shift on a re-run, though the retrieval rankings are
+deterministic.
+
+requirements.txt needed no changes. HW4 imports streamlit, chromadb, bs4 and
+openai, all already listed. The pysqlite3-binary pin for Linux carries over
+from Lab 4 and is what lets ChromaDB run on Streamlit Community Cloud.
+
+I checked the deployed app in a browser. It loads HW 4 by default, reports 513
+organizations and 1,026 mini-documents, and answered correctly on both a
+factual question and a memory follow-up.
