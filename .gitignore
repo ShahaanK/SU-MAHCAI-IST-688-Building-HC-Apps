@@ -41,3 +41,6 @@ dist/
 *.key
 .env
 .env.*
+
+# Generated vector database — rebuilt from HW/HW4-Data on first run
+HW/HW4-ChromaDB/
