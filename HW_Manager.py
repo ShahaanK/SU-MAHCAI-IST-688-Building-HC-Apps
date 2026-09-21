@@ -23,6 +23,12 @@ hw_3_page = st.Page(
     'HW/HW3.py',
     title="HW 3",
     icon="💬",
+    default=False
+    )
+hw_4_page = st.Page(
+    'HW/HW4.py',
+    title="HW 4",
+    icon="🔎",
     default=True
     )
 pgs = st.navigation(
@@ -30,6 +36,7 @@ pgs = st.navigation(
         hw_1_page,
         hw_2_page,
         hw_3_page,
+        hw_4_page,
     ]
 )
 
