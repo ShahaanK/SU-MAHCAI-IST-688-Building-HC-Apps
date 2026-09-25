@@ -35,6 +35,12 @@ lab_4_page = st.Page(
     'Lab 4/Lab4.py',
     title= "Lab 4",
     icon= "🔎",
+    default=False
+    )
+lab_5_page = st.Page(
+    'Lab 5/Lab5.py',
+    title= "Lab 5",
+    icon= "🧥",
     default=True
     )
 pgs = st.navigation(
@@ -43,7 +49,8 @@ pgs = st.navigation(
         lab_1_page,
         lab_2_page,
         lab_3_page,
-        lab_4_page
+        lab_4_page,
+        lab_5_page
     ]
 )
 

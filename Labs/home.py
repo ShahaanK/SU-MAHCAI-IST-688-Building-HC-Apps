@@ -16,5 +16,8 @@ st.markdown(
 - **Lab 4** — Course information chatbot. Answers questions about seven IST course
   syllabi by retrieving the closest ones from a ChromaDB vector database and adding
   them to the prompt (RAG).
+- **Lab 5** — The "What to Wear" bot. Enter a city and get clothing and outdoor
+  activity advice for today. The LLM calls a weather tool (live data from wttr.in)
+  when it needs the forecast.
 """
 )
