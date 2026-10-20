@@ -186,4 +186,4 @@ Total OpenRouter spend for this assignment, from the key's usage counter, was $0
 
 `numpy` was added to `requirements.txt`. `HW7.py` imports `streamlit`, `openai` and `numpy`, and the other two were already listed.
 
-I checked the deployed app after pushing (see the submission notes).
+I checked the deployed app in Chrome after merging. It opens on HW 7, reports 1,090 articles, 861 stories and 177 clients in the sidebar, and answered "Find the most interesting news" on gpt-5-mini with the same ranked list as the local runs, led by Coca-Cola's $6 billion IRS case and Intel's 15,000 job cuts. The dollar amounts rendered correctly there too.
