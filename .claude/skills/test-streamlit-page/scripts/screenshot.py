@@ -143,7 +143,7 @@ def main():
             print(f"exceptions: {exceptions}")
             if errors:
                 print(f"error alerts: {errors}")
-            body = frame.locator('[data-testid="stMain"]').first.inner_text()
+            body = frame.locator('[data-testid="stApp"]').first.inner_text()
             print("--- visible text (first 1500 chars)\n" + body[:1500])
             failed = exceptions > 0
             browser.close()
