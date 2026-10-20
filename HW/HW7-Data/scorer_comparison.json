@@ -1,0 +1,708 @@
+{
+ "model": "openai/gpt-5.5",
+ "sample_ids": [
+  37,
+  61,
+  66,
+  67,
+  68,
+  73,
+  83,
+  98,
+  99,
+  100,
+  101,
+  102,
+  103,
+  124,
+  125,
+  142,
+  150,
+  171,
+  201,
+  207,
+  215,
+  223,
+  235,
+  253,
+  255,
+  256,
+  258,
+  261,
+  275,
+  279,
+  284,
+  332,
+  344,
+  345,
+  346,
+  347,
+  348,
+  352,
+  370,
+  378,
+  394,
+  405,
+  407,
+  412,
+  421,
+  452,
+  453,
+  472,
+  474,
+  488,
+  506,
+  512,
+  514,
+  533,
+  539,
+  555,
+  557,
+  565,
+  574,
+  591,
+  621,
+  633,
+  667,
+  678,
+  679,
+  680,
+  685,
+  687,
+  692,
+  693,
+  711,
+  723,
+  725,
+  750,
+  752,
+  754,
+  755,
+  758,
+  763,
+  853,
+  862,
+  876,
+  880,
+  881,
+  902,
+  906,
+  912,
+  920,
+  926,
+  929,
+  943,
+  974,
+  977,
+  984,
+  1023,
+  1036,
+  1040,
+  1075,
+  1078,
+  1088
+ ],
+ "seconds": 65.1,
+ "premium_scores": {
+  "37": {
+   "about_client": true,
+   "score": 6,
+   "category": "m&a",
+   "why": "Nuvei, which is in a take-private deal with Advent International, announced an acquisition in Brazil that may affect the pending Advent-backed transaction and portfolio strategy."
+  },
+  "61": {
+   "about_client": true,
+   "score": 10,
+   "category": "antitrust",
+   "why": "A U.S. court found Google violated antitrust law and potential remedies could include major changes or a breakup of parent Alphabet."
+  },
+  "66": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about the children's alphabet song, not Alphabet Inc."
+  },
+  "67": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about a viral version of the alphabet song, not Alphabet Inc."
+  },
+  "68": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about changes to the ABC song, not Alphabet Inc."
+  },
+  "73": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This concerns the Amazon rainforest in Peru, not Amazon.com."
+  },
+  "83": {
+   "about_client": true,
+   "score": 2,
+   "category": "markets",
+   "why": "A small institutional share sale in Amdocs is routine holdings-filing news with limited legal or strategic significance."
+  },
+  "98": {
+   "about_client": true,
+   "score": 9,
+   "category": "m&a",
+   "why": "Apax Partners is taking Thoughtworks private in a sizable $1.75 billion transaction."
+  },
+  "99": {
+   "about_client": true,
+   "score": 9,
+   "category": "m&a",
+   "why": "The article covers the $1.75 billion Thoughtworks take-private deal by Apax Partners and the law firms advising it."
+  },
+  "100": {
+   "about_client": true,
+   "score": 9,
+   "category": "m&a",
+   "why": "Apax Partners' agreement to acquire Thoughtworks and take it private is a major transaction."
+  },
+  "101": {
+   "about_client": true,
+   "score": 9,
+   "category": "m&a",
+   "why": "Thoughtworks announced it will be taken private by Apax funds in a significant public-company acquisition."
+  },
+  "102": {
+   "about_client": true,
+   "score": 9,
+   "category": "m&a",
+   "why": "Reuters reports Apax Partners' $1.75 billion deal to take Thoughtworks private, a major M&A matter."
+  },
+  "103": {
+   "about_client": true,
+   "score": 9,
+   "category": "m&a",
+   "why": "Apax Partners agreed to acquire Thoughtworks in a $1.75 billion take-private deal."
+  },
+  "124": {
+   "about_client": true,
+   "score": 3,
+   "category": "strategy",
+   "why": "An Ardian managing director discusses office lending opportunities and ESG criteria, which is useful background but not a major legal event."
+  },
+  "125": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article is about PAI Partners' investment in Nutripure and does not appear to concern Ardian."
+  },
+  "142": {
+   "about_client": true,
+   "score": 2,
+   "category": "product",
+   "why": "This is a review of an Asus gaming laptop, which is low-priority product coverage."
+  },
+  "150": {
+   "about_client": true,
+   "score": 8,
+   "category": "restructuring",
+   "why": "Atos reported heavy first-half losses amid restructuring, indicating material financial distress and strategic change."
+  },
+  "171": {
+   "about_client": true,
+   "score": 4,
+   "category": "financing",
+   "why": "Checkly's €18.4 million Series B financing appears to involve Balderton Capital, a routine but relevant venture investment."
+  },
+  "201": {
+   "about_client": true,
+   "score": 7,
+   "category": "m&a",
+   "why": "Bridgepoint is reportedly linked to takeover interest in London-listed Alpha FMC, an early-stage but potentially significant transaction."
+  },
+  "207": {
+   "about_client": true,
+   "score": 1,
+   "category": "csr",
+   "why": "Broadcom-related scholarships are positive corporate social responsibility news with minimal legal or strategic significance."
+  },
+  "215": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This uses 'canon' in the sense of fictional continuity and is not about Canon Inc."
+  },
+  "223": {
+   "about_client": true,
+   "score": 2,
+   "category": "marketing",
+   "why": "The article is about Canon Professional Services equipment support at the Olympics, but it is essentially promotional/product-interest coverage with low legal or strategic significance."
+  },
+  "235": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about an insect caterpillar, not Caterpillar Inc."
+  },
+  "253": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This concerns NFL player Nick Chubb and is not about Chubb the insurance company."
+  },
+  "255": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This concerns NFL player Nick Chubb and is not about Chubb the insurance company."
+  },
+  "256": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This concerns NFL player Nick Chubb and is not about Chubb the insurance company."
+  },
+  "258": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This concerns NFL player Nick Chubb and is not about Chubb the insurance company."
+  },
+  "261": {
+   "about_client": true,
+   "score": 6,
+   "category": "strategy",
+   "why": "Cinven is reportedly preparing a mid-market expansion under new leadership, a meaningful strategic shift but not a dispute or major transaction."
+  },
+  "275": {
+   "about_client": true,
+   "score": 9,
+   "category": "m&a",
+   "why": "Clayton, Dubilier & Rice is part of an $8.9 billion acquisition of R1 RCM, a major take-private transaction likely to matter to deal teams."
+  },
+  "279": {
+   "about_client": true,
+   "score": 2,
+   "category": "marketing",
+   "why": "Coca-Cola is mentioned in a consumer promotion at SM Foodcourt, which is routine marketing with little firm significance."
+  },
+  "284": {
+   "about_client": true,
+   "score": 10,
+   "category": "tax",
+   "why": "A U.S. Tax Court ruling that Coca-Cola owes about $6 billion to the IRS is a major tax dispute and high-priority legal development."
+  },
+  "332": {
+   "about_client": true,
+   "score": 5,
+   "category": "earnings",
+   "why": "This is eBay's Q2 2024 earnings call transcript, relevant for routine financial monitoring but with no specific adverse legal issue indicated."
+  },
+  "344": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about football pundit Eni Aluko, not the energy company Eni."
+  },
+  "345": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about football pundit Eni Aluko, not the energy company Eni."
+  },
+  "346": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about football pundit Eni Aluko, not the energy company Eni."
+  },
+  "347": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about football pundit Eni Aluko, not the energy company Eni."
+  },
+  "348": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is about football pundit Eni Aluko, not the energy company Eni."
+  },
+  "352": {
+   "about_client": true,
+   "score": 3,
+   "category": "product",
+   "why": "Ericsson commentary on AI-powered autonomous networks is relevant to its 5G positioning but appears to be thought leadership rather than a material business or legal development."
+  },
+  "370": {
+   "about_client": true,
+   "score": 10,
+   "category": "litigation",
+   "why": "Meta, Facebook's parent, agreed to a $1.4 billion settlement with Texas, a major litigation resolution requiring high-priority monitoring."
+  },
+  "378": {
+   "about_client": true,
+   "score": 2,
+   "category": "media",
+   "why": "Founders Fund appears in a broader feature about tech elites and media ventures, which is reputational context but not a material legal or transactional development."
+  },
+  "394": {
+   "about_client": true,
+   "score": 7,
+   "category": "financing",
+   "why": "General Atlantic led or participated in a more than $200 million Series C investment in Flo Health, a sizable private financing relevant to client monitoring."
+  },
+  "405": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article concerns STAN appointing a head of partnerships and does not appear to be about General Catalyst."
+  },
+  "407": {
+   "about_client": true,
+   "score": 6,
+   "category": "labor",
+   "why": "General Motors is changing its salaried employee performance-rating and bonus system, a workforce-management development with potential employment implications but not a major layoff or dispute."
+  },
+  "412": {
+   "about_client": true,
+   "score": 4,
+   "category": "strategy",
+   "why": "The article discusses GM management commentary on flexibility in EV investments, a strategic update but not a transaction, dispute, or enforcement matter."
+  },
+  "421": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article is about Lazard Asset Management's holdings in Accolade and is not about GGV Capital."
+  },
+  "452": {
+   "about_client": true,
+   "score": 8,
+   "category": "m&a",
+   "why": "The EU unconditionally approved Hewlett Packard Enterprise's $14 billion acquisition of Juniper Networks, a major M&A and antitrust-clearance development."
+  },
+  "453": {
+   "about_client": true,
+   "score": 8,
+   "category": "m&a",
+   "why": "The article reports EU approval of HPE's $14 billion Juniper takeover and notes continuing UK antitrust review, making it significant for deal monitoring."
+  },
+  "472": {
+   "about_client": true,
+   "score": 5,
+   "category": "executive",
+   "why": "Hyundai Motor America eliminated the CMO role in a marketing-department restructuring, an executive and organizational change of moderate relevance."
+  },
+  "474": {
+   "about_client": true,
+   "score": 3,
+   "category": "sales",
+   "why": "Hyundai Motor America reported routine monthly vehicle sales figures, useful business context but low legal or strategic urgency."
+  },
+  "488": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article is about Datadog raising funding and does not indicate involvement by Iconiq Capital."
+  },
+  "506": {
+   "about_client": true,
+   "score": 9,
+   "category": "tax",
+   "why": "Infosys is facing, and may obtain early closure of, a massive GST tax notice involving roughly ₹32,403 crore, a high-stakes tax dispute."
+  },
+  "512": {
+   "about_client": true,
+   "score": 9,
+   "category": "tax",
+   "why": "Infosys reportedly received an approximately $4 billion tax demand from Indian tax authorities, a major tax enforcement matter."
+  },
+  "514": {
+   "about_client": true,
+   "score": 5,
+   "category": "m&a",
+   "why": "ING's CEO discussed the bank's preference for smaller digital-focused M&A and ruled down interest in Commerzbank, a strategy item rather than a specific major deal."
+  },
+  "533": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is a retail deal on a Corsair gaming PC that contains an Intel CPU, not an article about Intel itself."
+  },
+  "539": {
+   "about_client": true,
+   "score": 10,
+   "category": "labor",
+   "why": "Intel announced layoffs of more than 15,000 employees and cuts to non-essential work, a major workforce restructuring."
+  },
+  "555": {
+   "about_client": true,
+   "score": 9,
+   "category": "regulatory",
+   "why": "JPMorgan Chase faces potential CFPB enforcement over Zelle and is considering litigation, a significant regulatory dispute."
+  },
+  "557": {
+   "about_client": true,
+   "score": 5,
+   "category": "product",
+   "why": "JPMorgan Chase launched an internal LLM Suite for AI adoption in finance, a notable technology initiative but not a legal or transactional development."
+  },
+  "565": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "Here KKR refers to the Kolkata Knight Riders cricket team, not the private equity firm."
+  },
+  "574": {
+   "about_client": true,
+   "score": 5,
+   "category": "earnings",
+   "why": "Lam Research reported quarterly financial results, a routine earnings item of moderate monitoring value."
+  },
+  "591": {
+   "about_client": true,
+   "score": 2,
+   "category": "marketing",
+   "why": "The article highlights Lenovo back-to-school sale deals on PCs and laptops, a marketing and product-discount item with low legal significance."
+  },
+  "621": {
+   "about_client": true,
+   "score": 2,
+   "category": "product",
+   "why": "This is a consumer comparison of a co-branded Bilt Mastercard credit card versus a Chase card, with limited strategic or legal significance for Mastercard."
+  },
+  "633": {
+   "about_client": true,
+   "score": 8,
+   "category": "litigation",
+   "why": "A federal court ruling that AIG units need not defend McKesson in opioid over-distribution suits is significant litigation/insurance coverage news tied to major opioid claims."
+  },
+  "667": {
+   "about_client": true,
+   "score": 2,
+   "category": "earnings",
+   "why": "This is only an announcement of the date for NCR Voyix's upcoming quarterly earnings release, with no results or substantive development yet."
+  },
+  "678": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article concerns speeding enforcement near Birmingham's NEC venue, not the NEC technology company client."
+  },
+  "679": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article is about a Titanic exhibition at Birmingham's NEC venue, not the NEC technology company client."
+  },
+  "680": {
+   "about_client": true,
+   "score": 5,
+   "category": "financing",
+   "why": "New Enterprise Associates participated in or is linked to a sizable $100 million Series A financing for Amber Therapeutics, a notable but routine venture investment item."
+  },
+  "685": {
+   "about_client": true,
+   "score": 2,
+   "category": "product",
+   "why": "This is a consumer roundup/review of HMD and Nokia-branded phones, with little legal or strategic significance for Nokia."
+  },
+  "687": {
+   "about_client": true,
+   "score": 8,
+   "category": "litigation",
+   "why": "Amazon has sued Nokia in federal court alleging infringement of multiple AWS cloud-computing patents, creating material IP litigation exposure."
+  },
+  "692": {
+   "about_client": true,
+   "score": 8,
+   "category": "litigation",
+   "why": "The article reports Amazon's federal patent infringement lawsuit against Nokia over cloud-computing patents, a significant legal dispute."
+  },
+  "693": {
+   "about_client": true,
+   "score": 8,
+   "category": "litigation",
+   "why": "This covers Amazon suing Nokia for alleged cloud patent misappropriation, a potentially important IP litigation matter."
+  },
+  "711": {
+   "about_client": true,
+   "score": 8,
+   "category": "regulatory",
+   "why": "Novartis is suing the FDA over approval of a generic version of Entresto, a significant regulatory and pharmaceutical exclusivity dispute."
+  },
+  "723": {
+   "about_client": true,
+   "score": 6,
+   "category": "markets",
+   "why": "Reports of delays to Nvidia's newest chip drove a sharp share-price drop, a meaningful operational and market development though not litigation or enforcement."
+  },
+  "725": {
+   "about_client": true,
+   "score": 9,
+   "category": "antitrust",
+   "why": "Nvidia reportedly faces two DOJ antitrust probes into its Run:ai acquisition and alleged abuse of market dominance, a high-priority enforcement risk."
+  },
+  "750": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article reviews Breville's Oracle Jet espresso machine and is unrelated to Oracle Corporation."
+  },
+  "752": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is a review of Breville's Oracle Jet espresso machine, not about Oracle Corporation."
+  },
+  "754": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The Oracle name here refers to Breville's espresso machine product line, not the Oracle client company."
+  },
+  "755": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The press release concerns Breville's Oracle-branded espresso machine line, not Oracle Corporation."
+  },
+  "758": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The description is a general article on Italian real estate investment and does not indicate it is about PAI Partners."
+  },
+  "763": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article is about Financial Partners Group Co., Ltd., which is a different entity from the client Partners Group."
+  },
+  "853": {
+   "about_client": true,
+   "score": 1,
+   "category": "markets",
+   "why": "Seiko Epson is likely mentioned as a market participant in a generic refurbished-printers market report, which has minimal client-specific significance."
+  },
+  "862": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article is about SEC fraud charges against BitClout founder Nader Al-Naji, not Sequoia Capital itself."
+  },
+  "876": {
+   "about_client": true,
+   "score": 5,
+   "category": "earnings",
+   "why": "Siemens Healthineers, part of the Siemens group, reported higher quarterly profit and reaffirmed guidance, a routine earnings development."
+  },
+  "880": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This concerns the Silver Lake neighborhood in Los Angeles, not the investment firm Silver Lake."
+  },
+  "881": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This concerns burglaries in the Silver Lake neighborhood, not the investment firm Silver Lake."
+  },
+  "902": {
+   "about_client": true,
+   "score": 7,
+   "category": "litigation",
+   "why": "A shareholder-rights law firm announced a fraud investigation into STMicroelectronics, signaling potential securities litigation exposure."
+  },
+  "906": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article is about Taiwan’s GDP growth and the AI boom generally, not specifically about TSMC."
+  },
+  "912": {
+   "about_client": true,
+   "score": 9,
+   "category": "cybersecurity",
+   "why": "A ransomware attack hit C-Edge Technologies, a Tata Consultancy Services joint venture, disrupting hundreds of banks and raising major cyber and operational risk issues."
+  },
+  "920": {
+   "about_client": true,
+   "score": 1,
+   "category": "executive",
+   "why": "This is a routine company profile of Tech Mahindra’s chief strategy officer with little legal or business-monitoring significance."
+  },
+  "926": {
+   "about_client": true,
+   "score": 6,
+   "category": "commercial",
+   "why": "Apple is pressuring Tencent to change WeChat mini-app payment practices, a commercially significant platform dispute affecting Tencent’s app ecosystem."
+  },
+  "929": {
+   "about_client": true,
+   "score": 6,
+   "category": "commercial",
+   "why": "Apple is reportedly demanding changes to Tencent’s app-payment practices in China, which could affect Tencent’s platform revenues and developer relationships."
+  },
+  "943": {
+   "about_client": true,
+   "score": 9,
+   "category": "safety",
+   "why": "A fatal crash involving a Tesla allegedly operating in full self-driving mode creates significant safety, regulatory, and litigation exposure."
+  },
+  "974": {
+   "about_client": true,
+   "score": 7,
+   "category": "regulatory",
+   "why": "New U.S. export-control rules affecting equipment exports to China directly implicate Tokyo Electron’s semiconductor-equipment business."
+  },
+  "977": {
+   "about_client": true,
+   "score": 9,
+   "category": "regulatory",
+   "why": "Japan’s transport ministry issued a corrective order requiring Toyota to make drastic reforms after finding further vehicle-certification violations."
+  },
+  "984": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "This is content from The Points Guy and concerns loyalty-point valuations, not the private equity firm TPG."
+  },
+  "1023": {
+   "about_client": false,
+   "score": 0,
+   "category": "off-topic",
+   "why": "The article discusses Leonardo da Vinci, not the construction and concessions group VINCI."
+  },
+  "1036": {
+   "about_client": true,
+   "score": 8,
+   "category": "safety",
+   "why": "A fatal stabbing inside a Walmart store is a serious on-premises safety incident that may raise legal, security, and reputational concerns."
+  },
+  "1040": {
+   "about_client": true,
+   "score": 2,
+   "category": "safety",
+   "why": "This is a retrospective timeline of the 2019 El Paso Walmart shooting, with limited new legal or business significance."
+  },
+  "1075": {
+   "about_client": true,
+   "score": 5,
+   "category": "partnership",
+   "why": "Salesforce and Workday expanded their partnership around AI-enabled workplace tools, a business-relevant but non-contentious development."
+  },
+  "1078": {
+   "about_client": true,
+   "score": 2,
+   "category": "markets",
+   "why": "The article notes Xerox shares hitting a 52-week low amid market challenges, which is market commentary rather than a discrete legal or strategic event."
+  },
+  "1088": {
+   "about_client": true,
+   "score": 1,
+   "category": "markets",
+   "why": "ZTE is listed among companies in a generic TD-LTE ecosystem market report, with minimal company-specific significance."
+  }
+ }
+}

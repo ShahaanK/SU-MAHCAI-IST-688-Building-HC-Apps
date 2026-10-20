@@ -6,4 +6,5 @@ beautifulsoup4
 requests
 tiktoken
 chromadb
+numpy
 pysqlite3-binary; sys_platform == "linux"

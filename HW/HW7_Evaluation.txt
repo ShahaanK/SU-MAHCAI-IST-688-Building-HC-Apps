@@ -1,0 +1,348 @@
+HW 7 - News Information Bot
+Shahaan Khan (szkhan@syr.edu)
+
+App:  https://su-mahcai-ist-688-building-hc-apps-hw-manager.streamlit.app/
+      (HW 7 is the default page)
+Code: HW/HW7.py (the bot), HW/HW7_build_db.py (offline database build),
+      HW/HW7_evaluate.py (ranking and model checks)
+Data: HW/HW7-Data/ (news.csv, news_store.json, news_embeddings.npy,
+      gold_set.json, scorer_comparison.json)
+Full write-up with raw transcripts: HW7_Evaluation.md, HW7_transcripts.md
+
+3A. ARCHITECTURE
+
+The bot is a chat page with two tools, and the LLM decides which one a message
+needs. The heavy work happens once, offline, before the app runs.
+
+Cleaning the CSV
+----------------
+The file has 1,290 rows about 177 client companies, all published between July
+30 and August 6, 2024. It needed three kinds of cleanup.
+
+Duplicates come first. Whole company blocks appear twice (KKR, Goldman Sachs,
+Bain Capital, Accenture, Apple, Microsoft and others), and some URLs appear
+once with only a description and again with the full article. I kept one
+article per client and URL, choosing the longest version, which leaves 1,090
+articles. A few URLs are filed under two clients, like a Big Tech roundup
+under both Apple and Alphabet. Those stay once per client, since each is news
+about a different client.
+
+Some company names carry stray spaces (" TPG ", "Samsung Electronics "), so a
+company filter would never match them until they were stripped.
+
+Every Document reads <title> Description: <description>, and about a fifth go
+on with content: <full text>. I split those into separate fields.
+
+The database, built outside the app
+-----------------------------------
+HW7_build_db.py embeds every article with text-embedding-3-small and saves two
+committed files: the vectors as a 1,090 x 1,536 NumPy array (6.7 MB) and the
+article records as JSON. The page only opens them. Loading them took 0.01
+seconds, and the whole page loads in 1.4 seconds in AppTest, which is what the
+handout's suggestion to build the DB outside the app was after.
+
+I used NumPy instead of ChromaDB. At 1,090 vectors, exact cosine search is one
+matrix multiply, so an index adds nothing. More important, requirements.txt
+leaves chromadb unpinned, so a committed Chroma folder written by my local
+1.5.9 could fail to open on whatever version Streamlit Cloud installs. A .npy
+file has no such risk.
+
+Grouping coverage into stories
+------------------------------
+Several outlets often cover the same event, and a top-10 list shouldn't show
+three copies of it. Within each client, two articles whose embeddings have a
+cosine similarity of 0.78 or more count as the same story. I picked 0.78 by
+reading pairs in bands. From 0.78 up, they were nearly all different outlets
+on one event (Advantest's raised outlook, Amazon's Q2 miss, the Google
+antitrust ruling). Below about 0.76 they became separate news that only shared
+a topic, like two different Acer laptop deals. The result is 861 stories. 133
+of them have more than one article, and the largest has seven. The number of
+distinct outlets per story is kept as a coverage signal.
+
+Interest scores, assigned offline
+---------------------------------
+Retrieval can't answer "find the most interesting news": embedding the word
+"interesting" and taking the nearest articles ranks nothing. So the build
+script has gpt-5-mini read every article once, 20 per call, with a rubric
+written for a law firm watching its clients. For each article it returns four
+fields:
+
+- about_client: whether the article is about the client or only shares its
+  name.
+- score, 0 to 10. Litigation, enforcement, antitrust, large settlements, tax
+  disputes, major M&A, mass layoffs, breaches and fatal safety incidents score
+  highest. Product reviews and stock-ticker filler score lowest.
+- category, a one- or two-word label.
+- why, one sentence on why it matters to the firm.
+
+Scoring all 1,090 articles took 1,142 seconds (19 minutes). The scores are
+saved, so the ranking costs nothing at runtime and is the same on every run.
+That matters because gpt-5 models don't accept a temperature setting, so live
+scoring would drift.
+
+Name collisions turned out to be the main data-quality problem for a client-
+monitoring bot. 252 of the 1,090 articles were flagged as not about their
+client. The most affected names:
+
+Client       Off-topic  Example
+---------------------------------------------------------------------------
+VINCI        10         Leonardo da Vinci, the Olympics "Last Supper" scene
+NEC          9          Birmingham's NEC venue
+Oracle       8          a Breville "Oracle" espresso machine
+Chubb        7          Browns running back Nick Chubb
+Silver Lake  6          the LA neighborhood
+
+Caterpillar's garden-insect Q&A, Eni Aluko, the KKR cricket team, the alphabet
+song, the Amazon rainforest and The Points Guy were caught the same way.
+
+The two tools
+-------------
+rank_news(company?, top_n?) sorts by stored score, then the number of outlets
+covering the story, then date. It keeps one article per story and leaves out
+anything flagged off-topic. Each ranked story carries its stored category and
+"why" sentence, and that is where the context for "interesting" news comes
+from.
+
+search_news(query, company?, top_k?) runs a cosine search over the stored
+vectors. It drops hits below 0.25 similarity and name collisions, and keeps
+one article per story and per URL. The optional company filter accepts aliases
+(Meta for Facebook, Google for Alphabet, Foxconn for Hon Hai Precision). When
+the company isn't a client, the tool says so and searches all articles for it.
+
+The flow is the same two-call pattern as HW 5. The first call sees the
+conversation and both tools and writes the tool arguments. The second call
+gets the tool results and no tools, so it can only answer. Its prompt asks for
+rankings as a numbered list, each story with a linked headline, date, outlet,
+what happened and a "Why it matters" sentence, and for searches to list only
+the relevant hits, newest first. It also states the date range and forbids
+outside knowledge, so the bot never calls 2024 news "recent". Memory holds the
+last 5 interactions.
+
+Provider
+--------
+The OpenAI account ran out of credits partway through this assignment
+(insufficient_quota), so HW 7 calls the same OpenAI models through OpenRouter,
+using OPENROUTER_API_KEY. Nothing else in the design depends on the provider.
+
+3B. HOW I KNOW THE RANKING IS GOOD
+
+A gold set, written before any scoring
+--------------------------------------
+Before any model had scored anything, I read the CSV and wrote gold_set.json.
+It lists 15 must-see stories that a law firm should not miss: Intel's 15,000
+layoffs, the Google antitrust ruling, JPMorgan weighing a suit against the
+CFPB over Zelle, Japan's corrective order against Toyota, Nvidia's two DOJ
+probes, Coca-Cola's $6 billion IRS case, Infosys's $4 billion tax demand,
+Amazon suing Nokia, Novartis suing the FDA, Meta's $1.4 billion Texas
+settlement, the fatal Tesla FSD crash, the R1 RCM take-private, Apax taking
+Thoughtworks private, the EU clearing HPE-Juniper, and Apple pressuring
+Tencent over app fees. It also lists 13 noise items, name collisions and
+retail filler that must never rank.
+
+I first typed the Tesla headline wrong, so it matched nothing. I fixed the
+substring to the real headline without changing which story it names.
+
+Ranking results (gpt-5-mini scores, the app's default)
+------------------------------------------------------
+Check                         Result
+-------------------------------------
+Must-see stories in top 10    7 / 15
+... in top 15                 10 / 15
+... in top 20                 12 / 15
+... in top 30                 12 / 15
+Noise items that rank at all  0 / 13
+
+All 13 noise items were flagged off-topic, and none of the 252 off-topic
+articles can appear in a ranking.
+
+Positions 1 through 7 are Coca-Cola, Intel, Novartis, Tesla, Infosys, Meta and
+Google, all must-see stories. Three must-see stories land too low. JPMorgan
+vs. the CFPB is #50: it scored 8, while 67 articles scored 9 or 10. The R1 RCM
+take-private, also an 8, is #45, and Apple pressuring Tencent is #43.
+
+There are two false positives. A fatal stabbing inside a Walmart store and a
+retrospective timeline of the 2019 El Paso Walmart shooting both scored 10/10
+and ranked #8 and #11. The cheap model latches onto "fatal incident" language
+even when the story has no legal news in it. Infosys also appears twice in the
+top 10, because a Reuters report and a Bloomberg opinion column about the same
+tax demand fell below the clustering threshold.
+
+Behind most of these is score compression. 26 articles scored 10 and 41 scored
+9, so outlet count breaks the ties, and coverage is a weak proxy for legal
+importance.
+
+Testing the bot end to end
+--------------------------
+I ran eight messages through the real page with streamlit.testing.v1.AppTest
+on both models, in two conversations so memory was in play:
+
+#  Message                               What it probes
+------------------------------------------------------------------------------
+1  Find the most interesting news        the ranked list and its context
+2  Tell me more about the Coca-Cola one  memory: "the Coca-Cola one" only
+   and why it matters                    makes sense after #1
+3  Find news about JPMorgan              a clean client name
+4  Find news about Caterpillar           a name collision (the garden
+                                         caterpillar)
+5  Find news about antitrust             a topic across clients
+6  Find news about Boeing                not a client, only mentioned inside
+                                         Airbus stories
+7  What is the most interesting news     a ranking scoped to one client
+   about Nvidia?
+8  thanks!                               small talk, should use no tool
+
+#  gpt-5-mini                            gpt-5.5
+------------------------------------------------------------------------------
+1  correct, the 10 tool stories with     correct, same 10
+   context
+2  correct, filtered search on Coca-     correct
+   Cola
+3  correct, CFPB story listed third      correct, flagged CFPB as highest
+                                         stakes
+4  correct, real Caterpillar news only   correct
+5  mostly: added Apple's app-fee push    correct, 3 antitrust stories
+   on Tencent, which isn't antitrust
+6  correct, said Boeing isn't a client   correct
+7  weak, returned only 1 story           correct, 9 stories
+8  no tool call                          no tool call
+
+Both models answered only from the tool results; every fact I spot-checked
+against the tool output matched. On #1 they kept the tool's order and added a
+"Why it matters" line drawn from the stored reason. On #2 both resolved "the
+Coca-Cola one" from memory and ran a search filtered to Coca-Cola, returning
+the Fortune $6 billion story and the Bloomberg Tax $2.6 billion one. On #4 the
+insect article never surfaced. On #5, a re-run of gpt-5-mini after the dedupe
+fix returned the same three antitrust stories as gpt-5.5; the Tencent story
+had been the 10th hit in the first run and fell out of the top 8. On #6 both
+said Boeing is not a client and gave the two Airbus-filed articles that
+mention it. On #7, gpt-5-mini read "the most interesting" as singular and
+asked the tool for one story, while gpt-5.5 asked for ten.
+
+Question 3 shows one more weakness. Search results are ordered newest first,
+so the CFPB story, the most legally important JPMorgan item, came third behind
+a branch-expansion story and a rate forecast.
+
+With no OPENROUTER_API_KEY in secrets, the page shows the setup message
+instead of a traceback.
+
+Testing turned up two bugs, both fixed before submission:
+
+1. An unfiltered search could return the same URL twice when the feed files it
+   under two clients. Search now keeps one article per URL.
+2. The local screenshot showed answers garbled into math formatting. Streamlit
+   markdown reads a pair of $ signs as LaTeX, and news is full of dollar
+   amounts, so the page now escapes $.
+
+I re-ran the antitrust search and took a second screenshot to confirm both
+fixes.
+
+4. COMPARING A LOWER-COST AND A HIGHER-COST LLM
+
+The two models are gpt-5-mini ($0.25 per million input tokens, $2 per million
+output) and gpt-5.5 ($5 and $30), priced through OpenRouter. That makes
+gpt-5.5 20x the input price and 15x the output price. I compared them as the
+offline scorer and as the chat model.
+
+As the offline scorer
+---------------------
+gpt-5.5 rescored a fixed sample of 100 articles with the same prompt
+(HW7_evaluate.py compare). The sample was every gold-set article, the two
+Walmart crime stories, and a seeded random draw for the rest. I added the
+Walmart stories after seeing gpt-5-mini's ranking, and the script labels them
+as probes. The run took 65 seconds.
+
+Measure                           Result
+--------------------------------------------------
+Agree on about_client             94 / 100
+Score difference, mean absolute   0.83 points
+Scores within 1 point             82 / 100
+Spearman rank correlation         0.917
+Top-10 overlap within the sample  4 / 10
+Mean score (mini vs 5.5)          4.20 vs 3.85
+Noise items labeled off-topic     26 / 26 for both
+
+The two scorers mostly agree. The top-10 overlap is low because both put many
+articles at 9 or 10, so small shifts reorder the top. Where they disagree,
+gpt-5.5 usually has the better judgment. It scored the El Paso timeline 2
+against mini's 10, calling it "a retrospective timeline of the 2019 El Paso
+Walmart shooting, with limited new legal or business significance". It put the
+Walmart stabbing at 8 instead of 10. It gave JPMorgan's CFPB story and the R1
+RCM take-private a 9 against mini's 8, and those are the two stories the cheap
+ranking buried. It scored an NCR Voyix earnings-date announcement 2 against 5,
+noting it has "no results or substantive development yet."
+
+gpt-5.5 was not better everywhere. It scored Apple's pressure on Tencent 6
+against mini's 8, and the two split on three articles where the client may
+only be named in passing (Bridgepoint, NEA, PAI Partners).
+
+As the chat model
+-----------------
+Both models answered all eight test messages from the tool results without
+inventing facts. gpt-5.5 chose better tool arguments (10 stories instead of 1
+for #7) and called out the CFPB story as JPMorgan's most important item.
+gpt-5-mini added one off-topic story to its first antitrust answer.
+
+gpt-5.5 was also faster through OpenRouter in this run, which I didn't expect.
+Conversation B (6 turns) took 101 seconds on gpt-5-mini and 43 on gpt-5.5, and
+conversation A took 59 against 24. Per turn, gpt-5-mini needed 15 to 31
+seconds and gpt-5.5 needed 5 to 15.
+
+Summary
+-------
+The cheap model is good enough to label and score the whole set. It agrees
+with the expensive one 94% of the time on relevance, with a rank correlation
+of 0.92. Its mistakes cluster at the top of the ranking, which is the part a
+law firm reads. For chat, gpt-5.5 gave better-judged answers, and at list
+price it should cost only a few cents per question (an estimate; I didn't
+meter individual calls).
+
+WOULD I CHANGE ANYTHING?
+
+Yes, the top of the ranking needs a second pass. I tested the simplest version
+first: swap in gpt-5.5's scores for the 100 sampled articles and re-rank. That
+removed both Walmart crime stories from the top 15 and lifted JPMorgan from
+#50 to #16 and R1 RCM from #45 to #14. It also dropped Toyota from #14 to #33,
+Nvidia from #12 to #27 and HPE from #20 to #53, stories gpt-5.5 gave a 9 that
+then lost the outlet-count tiebreak. Must-see stories in the top 20 went from
+12 to 11. A cleaner scorer doesn't help much while so many stories sit at 9
+and 10.
+
+The change I'd make is a listwise re-rank: give gpt-5.5 the top 40 candidate
+stories in one call and have it order them by legal importance, instead of
+scoring each article on its own. That replaces the outlet-count tiebreak with
+an actual judgment. I left it out because it is untested, and every result
+above describes the app as submitted.
+
+Two smaller changes would also help:
+
+1. Order company searches by importance rather than date, so JPMorgan's CFPB
+   story leads.
+2. Group same-event articles more aggressively, with a lower threshold or by
+   having the LLM group them. That would merge the Infosys opinion column with
+   the Reuters report and catch the three Nvidia chip-delay articles that
+   stayed separate.
+
+MODEL CHOICE
+
+gpt-5-mini is first in the sidebar and powers the stored ranking for both
+models, since only it scored the whole set. On this evidence I'd make gpt-5.5
+the chat default: it was more accurate on the follow-ups and faster here, and
+the cost gap is small at this volume. The submitted app keeps gpt-5-mini
+first.
+
+NOTES
+
+Every question ran through the real page with AppTest, so answers used the
+same tools, prompts and memory a user gets. Each conversation ran once, so
+wording will shift on a re-run, but the stored scores and the ranking are
+fixed.
+
+Total OpenRouter spend for this assignment, from the key's usage counter, was
+$0.83. That covers embedding twice, scoring all 1,090 articles with
+gpt-5-mini, the 100-article gpt-5.5 sample, and every test conversation on
+both models.
+
+numpy was added to requirements.txt. HW7.py imports streamlit, openai and
+numpy, and the other two were already listed.
+
+I checked the deployed app after pushing (see the submission notes).
