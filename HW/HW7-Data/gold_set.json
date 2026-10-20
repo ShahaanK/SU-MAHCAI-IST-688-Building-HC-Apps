@@ -1,0 +1,35 @@
+{
+ "note": "Written by hand from news.csv before looking at any model's ranking. 'top' stories are the ones a law firm monitoring these clients must see; a good ranking puts most of them in its first 10-15 stories. 'noise' are name collisions or filler that must never rank. Each entry is a case-insensitive substring of the article title. The Tesla entry was first written with a mistyped title that matched nothing; it was corrected to the real headline without changing which story it names.",
+ "top": [
+  {"company": "Intel", "title": "laying off over 15,000"},
+  {"company": "Alphabet", "title": "Google Antitrust Ruling"},
+  {"company": "JPMorgan Chase", "title": "considers suing consumer watchdog"},
+  {"company": "Toyota Motor", "title": "drastic reforms"},
+  {"company": "Nvidia", "title": "two DOJ antitrust probes"},
+  {"company": "Coca-Cola", "title": "Owes $6 Billion to IRS"},
+  {"company": "Infosys", "title": "$4 billion tax demand"},
+  {"company": "Nokia", "title": "Amazon sues"},
+  {"company": "Novartis", "title": "sues FDA"},
+  {"company": "Facebook", "title": "settles Texas lawsuit"},
+  {"company": "Tesla", "title": "full self-driving mode when it"},
+  {"company": "Clayton, Dubilier & Rice", "title": "R1 RCM to be Acquired"},
+  {"company": "Apax Partners", "title": "Thoughtworks"},
+  {"company": "Hewlett Packard Enterprise", "title": "EU approves"},
+  {"company": "Tencent", "title": "Apple Pressures"}
+ ],
+ "noise": [
+  {"company": "Caterpillar", "title": "Did a caterpillar sting me"},
+  {"company": "VINCI", "title": "Clutching pearls with Leonardo da Vinci"},
+  {"company": "Eni", "title": "Joey Barton"},
+  {"company": "KKR", "title": "Shah Rukh Khan"},
+  {"company": "Silver Lake", "title": "prowl"},
+  {"company": "Chubb", "title": "Nick Chubb"},
+  {"company": "Alphabet", "title": "alphabet song"},
+  {"company": "Oracle", "title": "Breville"},
+  {"company": "Amazon", "title": "Reclusive tribe"},
+  {"company": "TPG", "title": "points and miles"},
+  {"company": "NEC", "title": "Titanic"},
+  {"company": "Canon", "title": "Three-Eyed Raven"},
+  {"company": "Intel", "title": "Corsair gaming PC"}
+ ]
+}
